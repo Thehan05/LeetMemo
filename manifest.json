@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "LeetMemo",
+    "version": "1.0",
+    "description": "A Chrome extension to save and manage your LeetCode notes.",
+    "host_permissions": [
+        "https://leetcode.com/*"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}
