@@ -1,48 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="popup.css">
     <title>LeetMemo</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/heatmap.css">
+    <link rel="stylesheet" href="css/notes.css">
 </head>
+
 <body>
-    <main>
-        <h1>LeetMemo</h1>
-        <section id="profile-setup">
-            <p>Enter your LeetCode username to load your profile:</p>
-            <input type="text" id="username-input" placeholder="LeetCode Username">
-            <button id="load-profile">Load Profile</button>
+    <main class="app">
+        <header class="app-bar">
+            <a class="brand" href="#" aria-label="LeetMemo">
+                <span class="brand-mark">&lt;/&gt;</span>
+                <span>LeetMemo</span>
+            </a>
+
+            <div class="header-actions">
+                <button
+                    id="back-button"
+                    class="header-icon-button"
+                    type="button"
+                    aria-label="Back to profile"
+                    title="Back to profile"
+                    hidden
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+
+                <div id="settings-wrapper" class="settings-wrapper">
+                    <button
+                        id="settings-toggle"
+                        class="header-icon-button"
+                        type="button"
+                        aria-label="Open settings"
+                        aria-controls="settings-menu"
+                        aria-expanded="false"
+                        title="Settings"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.97 19.36a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3v-4h.08A1.7 1.7 0 0 0 4.64 8.94a1.7 1.7 0 0 0-.34-1.88L4.24 7l2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.57 1.7 1.7 0 0 0 10.03 3H10V3h4v.08A1.7 1.7 0 0 0 15.03 4.64a1.7 1.7 0 0 0 1.88-.34l.06-.06L19.8 7l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1.03H21v4h-.08A1.7 1.7 0 0 0 19.4 15z"></path>
+                        </svg>
+                    </button>
+
+                    <div
+                        id="settings-menu"
+                        class="settings-menu"
+                        role="menu"
+                        hidden
+                    >
+                        <div class="settings-row">
+                            <span>
+                                <strong>Dark mode</strong>
+                                <small>Use the dark theme</small>
+                            </span>
+
+                            <button
+                                id="theme-switch"
+                                class="theme-switch"
+                                type="button"
+                                role="switch"
+                                aria-checked="false"
+                                aria-label="Toggle dark mode"
+                            >
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <button
+                            id="change-user"
+                            class="settings-menu-button"
+                            type="button"
+                            role="menuitem"
+                            hidden
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
+                            </svg>
+                            <span>Change username</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="profile-setup" class="setup-panel">
+            <div class="setup-icon">LM</div>
+
+            <h1>Track your progress</h1>
+
+            <p>
+                Enter your LeetCode username to view your activity
+                and save problem notes.
+            </p>
+
+            <label for="username-input">LeetCode username</label>
+
+            <div class="input-row">
+                <input
+                    id="username-input"
+                    type="text"
+                    placeholder="Enter username"
+                    autocomplete="off"
+                >
+
+                <button id="load-profile" class="primary-button" type="button">
+                    Load
+                </button>
+            </div>
+
+            <p id="setup-status" class="message" aria-live="polite"></p>
         </section>
+
         <section id="profile-dashboard" style="display: none;">
-            <p id="status">Loading profile...</p>
+            <p id="status" class="message" aria-live="polite">
+                Loading profile...
+            </p>
 
-            <h2 id="username">Username</h2>
-            <p>Rank: <span id="ranking">-</span></p>
+            <section class="profile-section">
+                <div class="avatar">
+                    <img
+                        id="profile-avatar"
+                        alt=""
+                        referrerpolicy="no-referrer"
+                        hidden
+                    >
+                    <span id="avatar-initials">LC</span>
+                </div>
 
-            <p>Streak: <span id="streak">0</span></p>
-            <p>Active days: <span id="active-days">0</span></p>
-            <div id="heatmap"></div>
+                <div class="profile-copy">
+                    <h1 id="username">Username</h1>
+                    <p>Rank <span id="ranking">-</span></p>
+                </div>
 
-            <ul>
-                <li>Easy: <span id="easy-count">0</span></li>
-                <li>Medium: <span id="medium-count">0</span></li>
-                <li>Hard: <span id="hard-count">0</span></li>
-            </ul>
-
-            <ul id="recent-submissions"></ul>
-            <section id="notes-section">
-                <h3>Notes</h3>
-                <select id="problem-select"></select>
-                <textarea id="notes-input" placeholder="Write your notes here..."></textarea>
-                <button id="save-notes">Save Notes</button>
-                <p id="notes-status"></p>
+                <div class="total-solved">
+                    <strong id="total-solved">0</strong>
+                    <span>solved</span>
+                </div>
             </section>
+
+            <section class="difficulty-grid" aria-label="Solved problems">
+                <article class="difficulty-card easy">
+                    <span>Easy</span>
+                    <strong id="easy-count">0</strong>
+                </article>
+
+                <article class="difficulty-card medium">
+                    <span>Medium</span>
+                    <strong id="medium-count">0</strong>
+                </article>
+
+                <article class="difficulty-card hard">
+                    <span>Hard</span>
+                    <strong id="hard-count">0</strong>
+                </article>
+            </section>
+
+            <section class="content-section activity-section">
+                <div class="section-heading">
+                    <h2>Activity</h2>
+
+                    <p>
+                        streak <strong id="streak">0</strong>
+                        &middot;
+                        <strong id="active-days">0</strong> active days
+                    </p>
+                </div>
+
+                <div id="heatmap-scroll" class="heatmap-scroll">
+                    <div class="heatmap-chart">
+                        <div
+                            id="heatmap-months"
+                            class="heatmap-months"
+                            aria-hidden="true"
+                        ></div>
+
+                        <div class="heatmap-body">
+                            <div class="weekday-labels" aria-hidden="true">
+                                <span class="monday">Mon</span>
+                                <span class="wednesday">Wed</span>
+                                <span class="friday">Fri</span>
+                            </div>
+
+                            <div
+                                id="heatmap"
+                                aria-label="Submission activity"
+                            ></div>
+                        </div>
+
+                        <div
+                            class="heatmap-legend"
+                            aria-label="Activity intensity"
+                        >
+                            <span>Less</span>
+                            <i data-level="0"></i>
+                            <i data-level="1"></i>
+                            <i data-level="2"></i>
+                            <i data-level="3"></i>
+                            <i data-level="4"></i>
+                            <span>More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    id="heatmap-tooltip"
+                    class="heatmap-tooltip"
+                    role="tooltip"
+                    hidden
+                ></div>
+            </section>
+
+            <section id="notes-section" class="content-section">
+                <div class="section-heading">
+                    <h2>Problem notes</h2>
+                    <span class="section-accent">Save what you learned</span>
+                </div>
+
+                <label for="problem-select">Problem</label>
+                <select id="problem-select"></select>
+
+                <label for="notes-input">Notes</label>
+                <textarea
+                    id="notes-input"
+                    placeholder="Key idea, complexity, mistakes..."
+                ></textarea>
+
+                <div class="notes-actions">
+                    <p id="notes-status" class="message" aria-live="polite"></p>
+
+                    <button id="save-notes" class="primary-button" type="button">
+                        Save note
+                    </button>
+                </div>
+            </section>
+
+            <section class="content-section recent-section">
+                <div class="section-heading">
+                    <h2>
+                        <span class="check-icon">&#10003;</span>
+                        Recent AC
+                    </h2>
+                </div>
+
+                <ul id="recent-submissions" class="submission-list"></ul>
+            </section>
+
         </section>
-        <button id="change-user">Change Username</button>
     </main>
 
-    <script src="popup.js"></script>
+    <script type="module" src="js/popup.js"></script>
 </body>
 </html>
-    
