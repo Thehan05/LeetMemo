@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }`,
-            variables: { username: "thehan00000000000001" }
+
+            variables: { username: "thehan00000000000001", year: 2026 }
         })
     })
     .then(response => response.json())
@@ -47,4 +48,26 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Error fetching data:", error);
         document.getElementById("status").textContent = "Could not load profile.";
     });
+
+    fetch("https://leetcode.com/graphql", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            query: `query userProfileCalendar($username: String!, $year: Int!) {
+                    matchedUser(username: $username) {
+                        userCalendar(year: $year) {
+                            streak
+                            totalActiveDays
+                            submissionCalendar
+                        }
+                    }
+                }`,
+            variables: { username: "thehan00000000000001", year: 2026 }
+        })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error fetching data:", error));
 });
