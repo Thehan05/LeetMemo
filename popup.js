@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         timestamp
                     }
                 }`,
-                variables: { username: username, limit: 10 }
+                variables: { username: username, limit: 5 }
             })
         })
         .then(response => response.json())
@@ -150,6 +150,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.textContent = `${sub.title} - ${timeAgo(sub.timestamp)}`;
                 submissionsList.appendChild(item);
             });
+
+            document.getElementById("problem-select").innerHTML = submissions.map(sub =>
+                `<option value="${sub.titleSlug}">${sub.title}</option>`
+            ).join("");
         })
         .catch(error => {
             console.error("Error fetching data:", error);
@@ -177,6 +181,34 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.storage.local.remove("username");
         document.getElementById("profile-setup").style.display = "block";
         document.getElementById("profile-dashboard").style.display = "none";
+    });
+
+
+    document.getElementById("save-notes").addEventListener("click", function() {
+        const problemSlug = document.getElementById("problem-select").value;
+        const notes = document.getElementById("notes-input").value.trim();
+        if (problemSlug && notes) {
+            chrome.storage.local.get("notes", function(result) {
+                const allNotes = result.notes || {};
+                allNotes[problemSlug] = notes;
+                chrome.storage.local.set({ notes: allNotes }, function() {
+                    document.getElementById("notes-status").textContent = "Notes saved!";
+                    setTimeout(() => {
+                        document.getElementById("notes-status").textContent = "";
+                    }, 2000);
+                });
+            });
+        } else {
+            document.getElementById("notes-status").textContent = "Please select a problem and enter some notes.";
+        }
+    });
+
+    document.getElementById("problem-select").addEventListener("change", function() {
+        const slug = this.value;
+        chrome.storage.local.get("notes", function(result) {
+            const allNotes = result.notes || {};
+            document.getElementById("notes-input").value = allNotes[slug] || "";
+        });
     });
 
     function timeAgo(timestamp) {
