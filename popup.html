@@ -9,8 +9,12 @@
 <body>
     <main>
         <h1>LeetMemo</h1>
-
-        <section id="profile-dashboard">
+        <section id="profile-setup">
+            <p>Enter your LeetCode username to load your profile:</p>
+            <input type="text" id="username-input" placeholder="LeetCode Username">
+            <button id="load-profile">Load Profile</button>
+        </section>
+        <section id="profile-dashboard" style="display: none;">
             <p id="status">Loading profile...</p>
 
             <h2 id="username">Username</h2>
@@ -26,6 +30,7 @@
                 <li>Hard: <span id="hard-count">0</span></li>
             </ul>
         </section>
+        <button id="change-user">Change Username</button>
     </main>
 
     <script src="popup.js"></script>
