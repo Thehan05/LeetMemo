@@ -122,6 +122,38 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Error fetching data:", error);
             document.getElementById("status").textContent = "Could not load profile.";
         });
+
+        fetch("https://leetcode.com/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: `query recentAcSubmissions($username: String!, $limit: Int!) {
+                    recentAcSubmissionList(username: $username, limit: $limit) {
+                        id
+                        title
+                        titleSlug
+                        timestamp
+                    }
+                }`,
+                variables: { username: username, limit: 10 }
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const submissions = data.data?.recentAcSubmissionList || [];
+            const submissionsList = document.getElementById("recent-submissions");
+            submissionsList.innerHTML = "";
+            submissions.forEach(sub => {
+                const item = document.createElement("li");
+                item.textContent = `${sub.title} - ${timeAgo(sub.timestamp)}`;
+                submissionsList.appendChild(item);
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
     }
 
     chrome.storage.local.get("username", function(result) {
@@ -146,6 +178,23 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("profile-setup").style.display = "block";
         document.getElementById("profile-dashboard").style.display = "none";
     });
-});
 
+    function timeAgo(timestamp) {
+        const now = Math.floor(Date.now() / 1000);
+        const diff = now - timestamp;
+        
+        const minutes = Math.floor(diff / 60);
+        const hours = Math.floor(diff / 3600);
+        const days = Math.floor(diff / 86400);
+        const months = Math.floor(diff / 2592000);
+        const years = Math.floor(diff / 31536000);
+
+        if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`;
+        else if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`;
+        else if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+        else if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        else if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        else return "Just now";
+    }
+});
 
