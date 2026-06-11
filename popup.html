@@ -16,7 +16,13 @@
     <main class="app">
         <header class="app-bar">
             <a class="brand" href="#" aria-label="LeetMemo">
-                <span class="brand-mark">&lt;/&gt;</span>
+                <img
+                    class="brand-mark"
+                    src="icons/icon32.png"
+                    alt=""
+                    width="30"
+                    height="30"
+                >
                 <span>LeetMemo</span>
             </a>
 
@@ -149,17 +155,26 @@
             <section class="difficulty-grid" aria-label="Solved problems">
                 <article class="difficulty-card easy">
                     <span>Easy</span>
-                    <strong id="easy-count">0</strong>
+                    <div class="difficulty-count">
+                        <strong id="easy-count">0</strong>
+                        <small>/<span id="easy-total">&mdash;</span></small>
+                    </div>
                 </article>
 
                 <article class="difficulty-card medium">
                     <span>Medium</span>
-                    <strong id="medium-count">0</strong>
+                    <div class="difficulty-count">
+                        <strong id="medium-count">0</strong>
+                        <small>/<span id="medium-total">&mdash;</span></small>
+                    </div>
                 </article>
 
                 <article class="difficulty-card hard">
                     <span>Hard</span>
-                    <strong id="hard-count">0</strong>
+                    <div class="difficulty-count">
+                        <strong id="hard-count">0</strong>
+                        <small>/<span id="hard-total">&mdash;</span></small>
+                    </div>
                 </article>
             </section>
 

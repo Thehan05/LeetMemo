@@ -166,20 +166,36 @@
     font-weight: 500;
 }
 
-.difficulty-card strong {
+.difficulty-count {
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+}
+
+.difficulty-count strong {
     color: var(--text-primary);
     font-size: 20px;
     line-height: 1.1;
 }
 
-.difficulty-card.easy span {
+.difficulty-count small {
+    overflow: hidden;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.difficulty-card.easy > span {
     color: var(--easy);
 }
 
-.difficulty-card.medium span {
+.difficulty-card.medium > span {
     color: var(--medium);
 }
 
-.difficulty-card.hard span {
+.difficulty-card.hard > span {
     color: var(--hard);
 }

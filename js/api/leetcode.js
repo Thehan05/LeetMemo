@@ -25,6 +25,10 @@ async function fetchGraphQL(query, variables) {
 export async function fetchProfile(username) {
     const data = await fetchGraphQL(
         `query userProfile($username: String!) {
+            allQuestionsCount {
+                difficulty
+                count
+            }
             matchedUser(username: $username) {
                 username
                 profile {
@@ -42,7 +46,14 @@ export async function fetchProfile(username) {
         { username }
     );
 
-    return data?.matchedUser ?? null;
+    if (!data?.matchedUser) {
+        return null;
+    }
+
+    return {
+        ...data.matchedUser,
+        allQuestionsCount: data.allQuestionsCount ?? []
+    };
 }
 
 export async function fetchCalendar(username, year) {
