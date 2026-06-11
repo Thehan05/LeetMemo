@@ -9,8 +9,12 @@
 <body>
     <main>
         <h1>LeetMemo</h1>
-
-        <section id="profile-dashboard">
+        <section id="profile-setup">
+            <p>Enter your LeetCode username to load your profile:</p>
+            <input type="text" id="username-input" placeholder="LeetCode Username">
+            <button id="load-profile">Load Profile</button>
+        </section>
+        <section id="profile-dashboard" style="display: none;">
             <p id="status">Loading profile...</p>
 
             <h2 id="username">Username</h2>
@@ -25,7 +29,17 @@
                 <li>Medium: <span id="medium-count">0</span></li>
                 <li>Hard: <span id="hard-count">0</span></li>
             </ul>
+
+            <ul id="recent-submissions"></ul>
+            <section id="notes-section">
+                <h3>Notes</h3>
+                <select id="problem-select"></select>
+                <textarea id="notes-input" placeholder="Write your notes here..."></textarea>
+                <button id="save-notes">Save Notes</button>
+                <p id="notes-status"></p>
+            </section>
         </section>
+        <button id="change-user">Change Username</button>
     </main>
 
     <script src="popup.js"></script>
