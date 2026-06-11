@@ -30,7 +30,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const notes = initNotes({
-        problemSelect: elements.problemSelect,
+        recentListView: elements.recentListView,
+        noteEditor: elements.noteEditor,
+        noteTitle: elements.noteTitle,
+        noteBackButton: elements.noteBackButton,
         notesInput: elements.notesInput,
         notesStatus: elements.notesStatus,
         saveNotesButton: elements.saveNotesButton,
@@ -191,7 +194,10 @@ function getElements() {
         heatmapMonths: document.getElementById("heatmap-months"),
         heatmapScroll: document.getElementById("heatmap-scroll"),
         tooltip: document.getElementById("heatmap-tooltip"),
-        problemSelect: document.getElementById("problem-select"),
+        recentListView: document.getElementById("recent-list-view"),
+        noteEditor: document.getElementById("note-editor"),
+        noteTitle: document.getElementById("note-title"),
+        noteBackButton: document.getElementById("note-back"),
         notesInput: document.getElementById("notes-input"),
         notesStatus: document.getElementById("notes-status"),
         saveNotesButton: document.getElementById("save-notes"),

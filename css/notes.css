@@ -23,16 +23,27 @@
 
 .submission-list li {
     position: relative;
-    padding: 10px 22px 10px 0;
+    padding: 10px 22px 10px 8px;
 
     overflow: hidden;
     color: var(--text-primary);
     border-bottom: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
 
     font-size: 13px;
     font-weight: 600;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+}
+
+.submission-list li:hover {
+    color: var(--accent);
+    background: var(--surface-bg);
 }
 
 .submission-list li:first-child {
@@ -55,4 +66,41 @@
     font-size: 19px;
     font-weight: 400;
     transform: translateY(-50%);
+}
+
+.note-editor-heading {
+    gap: 10px;
+}
+
+.note-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    color: var(--text-secondary);
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+}
+
+.note-back-button:hover {
+    color: var(--accent);
+    background: var(--surface-bg);
+}
+
+.note-back-button svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }

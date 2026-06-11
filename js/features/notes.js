@@ -6,32 +6,45 @@ import { timeAgo } from "../utils/format.js";
 
 export function initNotes(elements) {
     const {
-        problemSelect,
+        recentListView,
+        noteEditor,
+        noteTitle,
+        noteBackButton,
         notesInput,
         notesStatus,
         saveNotesButton,
         submissionsList
     } = elements;
 
-    async function loadSelectedNote() {
-        const problemSlug = problemSelect.value;
+    let editingSlug = null;
 
-        if (!problemSlug) {
-            notesInput.value = "";
-            return;
-        }
+    async function openEditor(slug, title) {
+        editingSlug = slug;
+        noteTitle.textContent = title;
 
         const { notes = {} } = await getStoredValues("notes");
-        notesInput.value = notes[problemSlug] ?? "";
+        notesInput.value = notes[slug] ?? "";
+        notesStatus.textContent = "";
+
+        recentListView.hidden = true;
+        noteEditor.hidden = false;
+        notesInput.focus();
+    }
+
+    function closeEditor() {
+        editingSlug = null;
+        notesStatus.textContent = "";
+
+        noteEditor.hidden = true;
+        recentListView.hidden = false;
     }
 
     saveNotesButton.addEventListener("click", async () => {
-        const problemSlug = problemSelect.value;
         const note = notesInput.value.trim();
 
         notesStatus.textContent = "";
 
-        if (!problemSlug) {
+        if (!editingSlug) {
             notesStatus.textContent = "Please select a problem.";
             return;
         }
@@ -43,7 +56,7 @@ export function initNotes(elements) {
         }
 
         const { notes = {} } = await getStoredValues("notes");
-        notes[problemSlug] = note;
+        notes[editingSlug] = note;
         await setStoredValues({ notes });
 
         notesStatus.textContent = "Note saved.";
@@ -52,24 +65,15 @@ export function initNotes(elements) {
         }, 2000);
     });
 
-    problemSelect.addEventListener("change", loadSelectedNote);
+    noteBackButton.addEventListener("click", closeEditor);
 
     function renderSubmissions(submissions) {
         submissionsList.innerHTML = "";
-        problemSelect.innerHTML = "";
 
         if (submissions.length === 0) {
             const emptyItem = document.createElement("li");
             emptyItem.textContent = "No recent accepted submissions";
             submissionsList.appendChild(emptyItem);
-
-            const option = document.createElement("option");
-            option.value = "";
-            option.textContent = "No recent problems";
-            option.disabled = true;
-            option.selected = true;
-            problemSelect.appendChild(option);
-            notesInput.value = "";
             return;
         }
 
@@ -78,15 +82,15 @@ export function initNotes(elements) {
             item.textContent =
                 `${submission.title} - ${timeAgo(submission.timestamp)}`;
             item.title = submission.title;
-            submissionsList.appendChild(item);
+            item.dataset.slug = submission.titleSlug;
 
-            const option = document.createElement("option");
-            option.value = submission.titleSlug;
-            option.textContent = submission.title;
-            problemSelect.appendChild(option);
+            item.addEventListener("click", () => {
+                openEditor(submission.titleSlug, submission.title);
+            });
+
+            submissionsList.appendChild(item);
         });
 
-        loadSelectedNote();
     }
 
     return { renderSubmissions };
