@@ -1,0 +1,199 @@
+.app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 54px;
+    padding: 0 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.settings-wrapper {
+    position: relative;
+}
+
+.header-icon-button {
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+    padding: 0;
+
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    transition:
+        color 150ms ease,
+        background-color 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease;
+}
+
+.header-icon-button:hover,
+.header-icon-button[aria-expanded="true"] {
+    color: var(--accent);
+    background: var(--surface-bg);
+    border-color: var(--border);
+}
+
+.header-icon-button:active {
+    transform: scale(0.92);
+}
+
+.header-icon-button[hidden],
+.settings-wrapper[hidden],
+.settings-menu-button[hidden] {
+    display: none;
+}
+
+.header-icon-button svg {
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.settings-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 200;
+
+    width: 230px;
+    padding: 7px;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 22%);
+}
+
+.settings-menu[hidden] {
+    display: none;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-row > span {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-row strong {
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.settings-row small {
+    margin-top: 2px;
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.theme-switch {
+    position: relative;
+    flex: 0 0 auto;
+
+    width: 36px;
+    height: 20px;
+    padding: 0;
+
+    background: var(--border-strong);
+    border: 0;
+    border-radius: 999px;
+
+    transition: background-color 150ms ease;
+}
+
+.theme-switch span {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+
+    width: 14px;
+    height: 14px;
+
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 28%);
+
+    transition: transform 150ms ease;
+}
+
+.theme-switch[aria-checked="true"] {
+    background: var(--accent);
+}
+
+.theme-switch[aria-checked="true"] span {
+    transform: translateX(16px);
+}
+
+.settings-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 10px;
+
+    color: var(--text-primary);
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    text-align: left;
+}
+
+.settings-menu-button:hover {
+    color: var(--accent);
+    background: var(--surface-bg);
+}
+
+.settings-menu-button svg {
+    width: 17px;
+    height: 17px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}

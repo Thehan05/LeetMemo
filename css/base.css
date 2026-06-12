@@ -1,0 +1,227 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 420px;
+    min-height: 240px;
+    max-height: 600px;
+    overflow-y: auto;
+
+    background: var(--page-bg);
+    color: var(--text-primary);
+
+    font-family:
+        "Segoe UI",
+        "Helvetica Neue",
+        Helvetica,
+        sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+
+    transition:
+        background-color 180ms ease,
+        color 180ms ease;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.app {
+    margin: 12px;
+    overflow: hidden;
+
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    color: var(--text-primary);
+    background: var(--input-bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    outline: none;
+
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        background-color 180ms ease;
+}
+
+input {
+    height: 40px;
+    padding: 0 12px;
+}
+
+select {
+    height: 40px;
+    padding: 0 36px 0 12px;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 105px;
+    padding: 11px 12px;
+    resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgb(255 161 22 / 15%);
+}
+
+.primary-button,
+.secondary-button {
+    min-height: 38px;
+    padding: 0 16px;
+
+    border-radius: 8px;
+    font-weight: 650;
+
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease,
+        color 150ms ease,
+        transform 150ms ease;
+}
+
+.primary-button {
+    color: var(--button-text);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.primary-button:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+.secondary-button {
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid var(--border-strong);
+}
+
+.secondary-button:hover {
+    color: var(--accent);
+    background: var(--surface-bg);
+    border-color: var(--accent);
+}
+
+.primary-button:active,
+.secondary-button:active {
+    transform: translateY(1px);
+}
+
+.content-section {
+    padding: 16px 18px 18px;
+    border-top: 1px solid var(--border);
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.section-heading p,
+.section-accent {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.section-heading p strong {
+    color: inherit;
+    font-weight: 500;
+}
+
+.message {
+    min-height: 18px;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.message:empty {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border: 2px solid var(--panel-bg);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
