@@ -233,39 +233,49 @@
                 ></div>
             </section>
 
-            <section id="notes-section" class="content-section">
-                <div class="section-heading">
-                    <h2>Problem notes</h2>
-                    <span class="section-accent">Save what you learned</span>
-                </div>
-
-                <label for="problem-select">Problem</label>
-                <select id="problem-select"></select>
-
-                <label for="notes-input">Notes</label>
-                <textarea
-                    id="notes-input"
-                    placeholder="Key idea, complexity, mistakes..."
-                ></textarea>
-
-                <div class="notes-actions">
-                    <p id="notes-status" class="message" aria-live="polite"></p>
-
-                    <button id="save-notes" class="primary-button" type="button">
-                        Save note
-                    </button>
-                </div>
-            </section>
-
             <section class="content-section recent-section">
-                <div class="section-heading">
-                    <h2>
-                        <span class="check-icon">&#10003;</span>
-                        Recent AC
-                    </h2>
+
+                <!-- LIST VIEW: shown by default -->
+                <div id="recent-list-view">
+                    <div class="section-heading">
+                        <h2>
+                            <span class="check-icon">&#10003;</span>
+                            Recent AC
+                        </h2>
+                    </div>
+
+                    <ul id="recent-submissions" class="submission-list"></ul>
                 </div>
 
-                <ul id="recent-submissions" class="submission-list"></ul>
+                <div id="note-editor" hidden>
+                    <div class="section-heading note-editor-heading">
+                        <button
+                            id="note-back"
+                            class="note-back-button"
+                            type="button"
+                            aria-label="Back to recent"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+
+                        <h2 id="note-title">Problem</h2>
+                    </div>
+
+                    <textarea
+                        id="notes-input"
+                        placeholder="Key idea, complexity, mistakes..."
+                    ></textarea>
+
+                    <div class="notes-actions">
+                        <p id="notes-status" class="message" aria-live="polite"></p>
+
+                        <button id="save-notes" class="primary-button" type="button">
+                            Save note
+                        </button>
+                    </div>
+                </div>
             </section>
 
         </section>
