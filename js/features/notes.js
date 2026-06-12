@@ -90,7 +90,6 @@ export function initNotes(elements) {
 
             submissionsList.appendChild(item);
         });
-
     }
 
     return { renderSubmissions };

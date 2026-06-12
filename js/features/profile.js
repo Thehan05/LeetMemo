@@ -3,13 +3,15 @@ import { formatNumber } from "../utils/format.js";
 export function renderProfile(matchedUser, elements) {
     const stats =
         matchedUser.submitStatsGlobal?.acSubmissionNum ?? [];
+    const totals = matchedUser.allQuestionsCount ?? [];
 
-    const getCount = difficulty =>
-        stats.find(item => item.difficulty === difficulty)?.count ?? 0;
+    const getCount = (items, difficulty, fallback) =>
+        items.find(item => item.difficulty === difficulty)?.count
+            ?? fallback;
 
-    const easyCount = getCount("Easy");
-    const mediumCount = getCount("Medium");
-    const hardCount = getCount("Hard");
+    const easyCount = getCount(stats, "Easy", 0);
+    const mediumCount = getCount(stats, "Medium", 0);
+    const hardCount = getCount(stats, "Hard", 0);
 
     elements.username.textContent = matchedUser.username;
     elements.ranking.textContent = matchedUser.profile?.ranking
@@ -18,6 +20,15 @@ export function renderProfile(matchedUser, elements) {
     elements.easyCount.textContent = formatNumber(easyCount);
     elements.mediumCount.textContent = formatNumber(mediumCount);
     elements.hardCount.textContent = formatNumber(hardCount);
+    elements.easyTotal.textContent = formatTotal(
+        getCount(totals, "Easy", null)
+    );
+    elements.mediumTotal.textContent = formatTotal(
+        getCount(totals, "Medium", null)
+    );
+    elements.hardTotal.textContent = formatTotal(
+        getCount(totals, "Hard", null)
+    );
     elements.totalSolved.textContent = formatNumber(
         easyCount + mediumCount + hardCount
     );
@@ -27,6 +38,10 @@ export function renderProfile(matchedUser, elements) {
         matchedUser.profile?.userAvatar,
         elements
     );
+}
+
+function formatTotal(value) {
+    return value === null ? "—" : formatNumber(value);
 }
 
 function renderAvatar(username, avatarUrl, elements) {
