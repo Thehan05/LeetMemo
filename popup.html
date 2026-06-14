@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/heatmap.css">
     <link rel="stylesheet" href="css/notes.css">
+    <link rel="stylesheet" href="css/reviews.css">
 </head>
 
 <body>
@@ -231,6 +232,18 @@
                     role="tooltip"
                     hidden
                 ></div>
+            </section>
+
+
+            <section id="due-section" class="content-section">
+                <div class="section-heading">
+                    <h2>Due For Review <span id="due-count" class="due-count">(0)</span></h2>
+                </div>
+
+                <ul id="due-list" class="due-list"></ul>
+                <p id="due-empty" class="message" hidden>
+                    Nothing due today 🎉
+                </p>
             </section>
 
             <section class="content-section recent-section">

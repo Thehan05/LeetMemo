@@ -2,6 +2,7 @@ import {
     getStoredValues,
     setStoredValues
 } from "../services/storage.js";
+import { scheduleNewReview } from "../services/reviews.js";
 import { timeAgo } from "../utils/format.js";
 
 export function initNotes(elements) {
@@ -77,6 +78,8 @@ export function initNotes(elements) {
             return;
         }
 
+        scheduleAll(submissions);
+
         submissions.forEach(submission => {
             const item = document.createElement("li");
             item.textContent =
@@ -90,6 +93,12 @@ export function initNotes(elements) {
 
             submissionsList.appendChild(item);
         });
+    }
+
+    async function scheduleAll(submissions) {
+        for (const submission of submissions) {
+            await scheduleNewReview(submission.titleSlug, submission.title);
+        }
     }
 
     return { renderSubmissions };
