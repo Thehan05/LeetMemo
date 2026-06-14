@@ -80,3 +80,11 @@
     text-align: center;
     color: var(--text-secondary);
 }
+
+.due-list li > span {
+    cursor: pointer;
+}
+
+.due-list li > span:hover {
+    color: var(--accent);
+}

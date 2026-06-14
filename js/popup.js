@@ -48,6 +48,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         dueEmpty: elements.dueEmpty
     });
 
+    function openProfileOnLeetCode() {
+        if (!activeUsername) return;
+        chrome.tabs.create({
+            url: `https://leetcode.com/u/${activeUsername}/`
+        });
+    }
+
+    elements.username.addEventListener("click", openProfileOnLeetCode);
+    elements.avatarImage.addEventListener("click", openProfileOnLeetCode);
+    elements.avatarInitials.addEventListener("click", openProfileOnLeetCode);
+
     function showSetup(message = "", canGoBack = false) {
         elements.profileSetup.style.display = "block";
         elements.profileDashboard.style.display = "none";

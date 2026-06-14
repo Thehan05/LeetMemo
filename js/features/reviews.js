@@ -28,6 +28,12 @@ export function initReviews(elements) {
             const title = document.createElement("span");
             title.textContent = review.title;
 
+            title.addEventListener("click", () => {
+                chrome.tabs.create({
+                    url: `https://leetcode.com/problems/${review.slug}/`
+                });
+            });
+            
             const failButton = document.createElement("button");
             failButton.textContent = "✕";
             failButton.addEventListener("click", async () => {
