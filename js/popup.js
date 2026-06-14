@@ -8,6 +8,7 @@ import { initNotes } from "./features/notes.js";
 import { renderProfile } from "./features/profile.js";
 import { initSettings } from "./features/settings.js";
 import { initTheme } from "./features/theme.js";
+import { initReviews } from "./features/reviews.js";
 import {
     getStoredValues,
     setStoredValues
@@ -38,6 +39,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         notesStatus: elements.notesStatus,
         saveNotesButton: elements.saveNotesButton,
         submissionsList: elements.submissionsList
+    });
+
+    const reviews = initReviews({
+        dueSection: elements.dueSection,
+        dueList: elements.dueList,
+        dueCount: elements.dueCount,
+        dueEmpty: elements.dueEmpty
     });
 
     function showSetup(message = "", canGoBack = false) {
@@ -97,6 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (submissionsResult.status === "fulfilled") {
                 notes.renderSubmissions(submissionsResult.value);
             }
+            reviews.renderDueReviews();
 
             const failedResult = [calendarResult, submissionsResult]
                 .find(result => result.status === "rejected");
@@ -204,6 +213,10 @@ function getElements() {
         notesInput: document.getElementById("notes-input"),
         notesStatus: document.getElementById("notes-status"),
         saveNotesButton: document.getElementById("save-notes"),
-        submissionsList: document.getElementById("recent-submissions")
+        submissionsList: document.getElementById("recent-submissions"),
+        dueSection: document.getElementById("due-section"),
+        dueList: document.getElementById("due-list"),
+        dueCount: document.getElementById("due-count"),
+        dueEmpty: document.getElementById("due-empty")
     };
 }

@@ -97,7 +97,7 @@ export function initNotes(elements) {
 
     async function scheduleAll(submissions) {
         for (const submission of submissions) {
-            await scheduleNewReview(submission.titleSlug);
+            await scheduleNewReview(submission.titleSlug, submission.title);
         }
     }
 

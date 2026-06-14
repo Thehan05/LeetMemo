@@ -5,7 +5,7 @@ import {
 
 const INTERVALS = [1, 3, 7, 14, 30, 60, 120];
 
-export async function scheduleNewReview(slug) {
+export async function scheduleNewReview(slug, title) {
     const { reviews = {} } = await getStoredValues("reviews");
     if (reviews[slug]) return;
 
@@ -13,7 +13,7 @@ export async function scheduleNewReview(slug) {
     date.setDate(date.getDate() + 1);
     const dueDate = date.toISOString().slice(0, 10);
 
-    reviews[slug] = { stage: 0, nextReview: dueDate };
+    reviews[slug] = { stage: 0, nextReview: dueDate , title};
     await setStoredValues({ reviews });
 }
 
