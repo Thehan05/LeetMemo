@@ -92,6 +92,15 @@
     display: none;
 }
 
+.avatar,
+#username {
+    cursor: pointer;
+}
+
+#username:hover {
+    color: var(--accent);
+}
+
 .profile-copy {
     min-width: 0;
 }
