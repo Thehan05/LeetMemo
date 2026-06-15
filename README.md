@@ -96,7 +96,8 @@ LeetMemo/
 ```
 
 ## ScreenShots
+
 <p align="center">
-  <img src="docs/image/dashboard.png" alt="LeetMemo extension dashboard" width="350">
-  <img src="docs/image/dashboard_light.png" alt="LeetMemo extension dashboard" width="350">
+  <img src="images/dashboard_dark.png" alt="LeetMemo extension dashboard" width="350">
+  <img src="images/dashboard_light.png" alt="LeetMemo extension dashboard" width="350">
 </p>
