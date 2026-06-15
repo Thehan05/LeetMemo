@@ -1,34 +1,45 @@
 # LeetMemo
----
-**A Chrome extension for retaining LeetCode solutions through structured notes and spaced repetition.**
+
+A Chrome extension that helps you actually remember LeetCode solutions, using problem notes and spaced repetition.
 
 ## Overview
 
-Solving a coding problem once does not mean you will remember the solution later.
-
-LeetMemo helps reinforce what you learn on LeetCode by combining problem-specific notes with a spaced-repetition review schedule. Recent accepted submissions are added to your review queue, allowing you to revisit each problem at gradually increasing intervals.
+Solving a problem once doesn't mean you'll remember it on interview day. LeetMemo pulls in your recent LeetCode submissions, lets you save notes on each one, and schedules them for review at increasing intervals — so the solutions stick.
 
 ## Features
 
-- View your LeetCode ranking and solved-problem statistics
-- Explore a submission activity heatmap for the current year
-- Browse your five most recent accepted submissions
-- Save notes for individual LeetCode problems
-- Automatically schedule recent submissions for review
-- Mark reviews as passed or failed
-- Open profiles and problems directly on LeetCode
-- Switch between light and dark themes
-- Store notes, preferences, and review progress locally
+- **Profile dashboard** — your ranking, solved counts, and a submission activity heatmap for the year
+- **Recent submissions** — your five most recent accepted problems
+- **Problem notes** — save notes (approach, complexity, edge cases) per problem
+- **Spaced-repetition reviews** — solved problems are queued and resurface at growing intervals
+- **Pass / Fail** — mark each review; passing pushes it further out, failing resets it to tomorrow
+- **Quick links** — open any profile or problem directly on LeetCode
+- **Light / dark mode** — everything stored locally, no account needed
 
-## How Spaced Repetition Works
+## How it works
 
-New problems are initially scheduled for review after one day.
+```
+[Extension popup]  →  [LeetCode GraphQL API]  →  [chrome.storage.local]
+```
 
-When you pass a review, the problem advances through increasingly longer intervals:
+1. You enter your username; the popup fetches your profile and recent submissions from LeetCode's public GraphQL API.
+2. Each accepted problem is added to a review queue, stored locally in `chrome.storage.local`.
+3. When a problem is due, it appears under **Due For Review**. You re-solve it and mark Pass or Fail.
 
-```text
+New problems are first scheduled for the next day. Each time you pass, the next review moves further out:
+
+```
 1 → 3 → 7 → 14 → 30 → 60 → 120 days
 ```
+
+A failed review resets the problem back to a one-day interval.
+
+## Tech stack
+
+- Chrome Extension Manifest V3
+- Vanilla HTML / CSS / JavaScript (ES modules)
+- LeetCode public GraphQL API
+- `chrome.storage.local` for notes, preferences, and review progress
 
 ## Installation
 
@@ -39,65 +50,36 @@ When you pass a review, the problem advances through increasingly longer interva
 2. Open Chrome and go to `chrome://extensions`.
 3. Enable **Developer mode** (top right).
 4. Click **Load unpacked** and select the `LeetMemo` folder.
-5. The extension icon should appear in your toolbar — click it on any page and hit **Summarize**.
-
+5. Click the LeetMemo icon in your toolbar, enter your LeetCode username, and hit **Load Profile**.
 
 ## Usage
 
-### Load your profile
+**Load your profile** — Open LeetMemo, enter your LeetCode username, and select **Load Profile**. Your stats, activity, reviews, and recent submissions appear. The username is remembered for next time.
 
-1. Open LeetMemo from the Chrome toolbar.
-2. Enter your LeetCode username.
-3. Select **Load Profile**.
-4. View your statistics, activity, reviews, and recent submissions.
+**Save notes** — Pick a problem under **Recent Submissions**, write your notes, and select **Save Notes**. Good notes cover the approach/pattern, time and space complexity, edge cases, and mistakes from your first attempt.
 
-LeetMemo remembers the selected username for future sessions.
+**Complete a review** — Open a problem under **Due For Review**, re-solve it or explain it from memory, then mark it **Pass** or **Fail**. Passing increases the interval; failing schedules it again for the next day.
 
-### Save problem notes
+## Project structure
 
-1. Select a problem under **Recent Submissions**.
-2. Write your notes in the editor.
-3. Select **Save Notes**.
-
-Useful notes might include:
-
-- The algorithm or problem-solving pattern
-- Time and space complexity
-- Important edge cases
-- Mistakes from the original attempt
-- Alternative approaches
-
-### Complete a review
-
-1. Open a problem under **Due For Review**.
-2. Attempt the problem again or explain the solution from memory.
-3. Mark the review as passed or failed.
-
-A passing result increases the review interval. A failing result schedules the problem again for the following day.
-
-</div>
-
-## Project Structure
-
-
-```text
+```
 LeetMemo/
 ├── css/                  # Popup layout and component styles
 ├── icons/                # Chrome extension icons
 ├── js/
 │   ├── api/              # LeetCode GraphQL requests
-│   ├── features/         # Profile, heatmap, notes, reviews, and theme
+│   ├── features/         # Profile, heatmap, notes, reviews, theme
 │   ├── services/         # Storage and review scheduling
-│   ├── utils/            # Shared formatting utilities
-│   └── popup.js          # Extension initialization
-├── manifest.json         # Chrome extension manifest
-├── popup.html            # Popup interface
+│   ├── utils/            # Shared formatting helpers
+│   └── popup.js          # Extension entry point
+├── manifest.json         # Chrome extension config
+├── popup.html            # Popup UI
 └── README.md
 ```
 
-## ScreenShots
+## Screenshots
 
 <p align="center">
-  <img src="images/dashboard_dark.png" alt="LeetMemo extension dashboard" width="350">
-  <img src="images/dashboard_light.png" alt="LeetMemo extension dashboard" width="350">
+  <img src="images/dashboard_dark.png" alt="LeetMemo dashboard (dark)" width="350">
+  <img src="images/dashboard_light.png" alt="LeetMemo dashboard (light)" width="350">
 </p>
