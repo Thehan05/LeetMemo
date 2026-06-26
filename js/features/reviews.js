@@ -12,6 +12,9 @@ export function initReviews(elements) {
         dueEmpty
     } = elements;
 
+    const VISIBLE = 5;
+    let expanded = false;
+
     async function renderDueReviews() {
         const due = await getDueReviews();
         dueCount.textContent = `(${due.length})`;
@@ -22,7 +25,9 @@ export function initReviews(elements) {
         }
         dueEmpty.hidden = true;
 
-        due.forEach(review => {
+        const visible = expanded ? due : due.slice(0, VISIBLE);
+        dueList.classList.toggle("expanded", expanded);
+        visible.forEach(review => {
             const item = document.createElement("li");
 
             const title = document.createElement("span");
@@ -51,6 +56,21 @@ export function initReviews(elements) {
             item.append(title, failButton, passButton);
             dueList.appendChild(item);
         });
+
+        if (due.length > VISIBLE) {
+            const item = document.createElement("li");
+            item.className = "due-toggle";
+
+            const button = document.createElement("button");
+            button.textContent = expanded ? "Show less" : `View more (${due.length - VISIBLE})`;
+            button.addEventListener("click", () => {
+                expanded = !expanded;
+                renderDueReviews();
+            });
+
+            item.appendChild(button);
+            dueList.appendChild(item);
+        }
     }
 
     return {
