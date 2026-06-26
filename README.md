@@ -60,7 +60,7 @@ A background service worker re-checks the queue (on startup and once an hour) an
 
 **Load your profile** — Open LeetMemo, enter your LeetCode username, and hit **Load**. Your stats, activity, reviews, and recent submissions appear. The username is remembered for next time.
 
-**Save notes** — Pick a problem under **Recent Submissions**, write your notes, and select **Save Notes**. Good notes cover the approach/pattern, time and space complexity, edge cases, and mistakes from your first attempt.
+**Save notes** — Pick a problem under **Recent Submissions**, write your notes, and select **Save note**. Good notes cover the approach/pattern, time and space complexity, edge cases, and mistakes from your first attempt.
 
 **Complete a review** — Open a problem under **Due For Review**, re-solve it or explain it from memory, then mark it **Pass** or **Fail**. Passing increases the interval; failing schedules it again for the next day.
 
