@@ -13,6 +13,7 @@ Solving a problem once doesn't mean you'll remember it on interview day. LeetMem
 - **Problem notes** — save notes (approach, complexity, edge cases) per problem
 - **Spaced-repetition reviews** — solved problems are queued and resurface at growing intervals
 - **Pass / Fail** — mark each review; passing pushes it further out, failing resets it to tomorrow
+- **Due-count badge** — the toolbar icon shows how many reviews are due, updated in the background even when the popup is closed
 - **Quick links** — open any profile or problem directly on LeetCode
 - **Light / dark mode** — everything stored locally, no account needed
 
@@ -34,12 +35,15 @@ New problems are first scheduled for the next day. Each time you pass, the next 
 
 A failed review resets the problem back to a one-day interval.
 
+A background service worker re-checks the queue (on startup and once an hour) and keeps the toolbar icon badge showing how many reviews are due — so you get a nudge without opening the popup.
+
 ## Tech stack
 
 - Chrome Extension Manifest V3
 - Vanilla HTML / CSS / JavaScript (ES modules)
 - LeetCode public GraphQL API
 - `chrome.storage.local` for notes, preferences, and review progress
+- Background service worker + `chrome.alarms` for the due-count badge
 
 ## Installation
 
@@ -50,13 +54,13 @@ A failed review resets the problem back to a one-day interval.
 2. Open Chrome and go to `chrome://extensions`.
 3. Enable **Developer mode** (top right).
 4. Click **Load unpacked** and select the `LeetMemo` folder.
-5. Click the LeetMemo icon in your toolbar, enter your LeetCode username, and hit **Load Profile**.
+5. Click the LeetMemo icon in your toolbar, enter your LeetCode username, and hit **Load**.
 
 ## Usage
 
-**Load your profile** — Open LeetMemo, enter your LeetCode username, and select **Load Profile**. Your stats, activity, reviews, and recent submissions appear. The username is remembered for next time.
+**Load your profile** — Open LeetMemo, enter your LeetCode username, and hit **Load**. Your stats, activity, reviews, and recent submissions appear. The username is remembered for next time.
 
-**Save notes** — Pick a problem under **Recent Submissions**, write your notes, and select **Save Notes**. Good notes cover the approach/pattern, time and space complexity, edge cases, and mistakes from your first attempt.
+**Save notes** — Pick a problem under **Recent Submissions**, write your notes, and select **Save note**. Good notes cover the approach/pattern, time and space complexity, edge cases, and mistakes from your first attempt.
 
 **Complete a review** — Open a problem under **Due For Review**, re-solve it or explain it from memory, then mark it **Pass** or **Fail**. Passing increases the interval; failing schedules it again for the next day.
 
@@ -71,6 +75,7 @@ LeetMemo/
 │   ├── features/         # Profile, heatmap, notes, reviews, theme
 │   ├── services/         # Storage and review scheduling
 │   ├── utils/            # Shared formatting helpers
+│   ├── background.js     # Service worker: badge count + hourly review check
 │   └── popup.js          # Extension entry point
 ├── manifest.json         # Chrome extension config
 ├── popup.html            # Popup UI

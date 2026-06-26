@@ -78,7 +78,9 @@ export function initNotes(elements) {
             return;
         }
 
-        scheduleAll(submissions);
+        scheduleAll(submissions).catch(error => {
+            console.error("Could not schedule reviews:", error);
+        });
 
         submissions.forEach(submission => {
             const item = document.createElement("li");
