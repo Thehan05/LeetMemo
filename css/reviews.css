@@ -88,3 +88,33 @@
 .due-list li > span:hover {
     color: var(--accent);
 }
+
+/* when expanded, cap the list and scroll inside it */
+.due-list.expanded {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+/* the View more / Show less row */
+#due-section .due-toggle {
+    justify-content: center;
+    padding: 12px 4px 2px;
+    border-bottom: 0;
+}
+
+#due-section .due-toggle > button {
+    flex: none;
+    width: auto;
+    height: auto;
+    padding: 6px 16px;
+
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#due-section .due-toggle > button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--surface-bg);
+}
