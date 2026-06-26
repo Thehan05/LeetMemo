@@ -4,7 +4,7 @@
     "version": "1.0",
     "description": "A Chrome extension to save and manage your LeetCode notes.",
     "permissions": [
-        "storage"
+        "storage", "alarms"
     ],
     "host_permissions": [
         "https://leetcode.com/*"
@@ -23,5 +23,9 @@
             "128": "icons/icon128.png"
         },
         "default_popup": "popup.html"
+    },
+    "background" : {
+        "service_worker" : "js/background.js",
+        "type" : "module"
     }
 }
